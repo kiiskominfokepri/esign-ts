@@ -1,0 +1,61 @@
+{
+  "name": "@kiiskominfokepri/esign",
+  "version": "1.0.0",
+  "description": "TypeScript/Node.js client library for BSrE (Balai Sertifikasi Elektronik) Esign Client Service API v1 & v2",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts --clean",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build",
+    "example:v1:sign-invisible": "tsx examples/v1/sign_invisible.ts",
+    "example:v1:sign-visible": "tsx examples/v1/sign_visible.ts",
+    "example:v1:verify": "tsx examples/v1/verify.ts",
+    "example:v1:download": "tsx examples/v1/download.ts",
+    "example:v2:sign-invisible": "tsx examples/v2/sign_invisible.ts",
+    "example:v2:sign-visible": "tsx examples/v2/sign_visible.ts",
+    "example:v2:bulk-sign": "tsx examples/v2/bulk_sign.ts",
+    "example:v2:check-status": "tsx examples/v2/check_status.ts",
+    "example:v2:verify": "tsx examples/v2/verify.ts"
+  },
+  "keywords": [
+    "esign",
+    "bsre",
+    "bssn",
+    "tanda-tangan-elektronik",
+    "digital-signature",
+    "typescript"
+  ],
+  "author": {
+    "name": "Doni Mustasar",
+    "email": "donny.md17@gmail.com"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "@types/node": "^20.17.0",
+    "dotenv": "^16.4.5",
+    "tsup": "^8.3.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0"
+  }
+}
