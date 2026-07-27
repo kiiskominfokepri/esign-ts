@@ -13,9 +13,83 @@ Based on *Petunjuk Teknis Penggunaan API Esign Client Service v2.2.1*.
 
 ## Installation
 
+Library ini **belum dipublikasikan ke npm registry**. Untuk menggunakannya di project, pilih salah satu metode berikut:
+
+### 1. GitHub dependency (langsung dari repo)
+
+```bash
+npm install github:kiiskominfokepri/esign-ts
+```
+
+Atau di `package.json`:
+
+```json
+{
+  "dependencies": {
+    "@kiiskominfokepri/esign": "github:kiiskominfokepri/esign-ts"
+  }
+}
+```
+
+#### Mengunci ke tag/commit tertentu
+
+```json
+{
+  "dependencies": {
+    "@kiiskominfokepri/esign": "github:kiiskominfokepri/esign-ts#v1.0.0"
+  }
+}
+```
+
+### 2. Local path (satu mesin)
+
+Cocok untuk development, kedua project ada di mesin yang sama.
+
+```json
+{
+  "dependencies": {
+    "@kiiskominfokepri/esign": "file:../esign-ts"
+  }
+}
+```
+
+Jalankan `npm install` seperti biasa — npm akan symlink folder tersebut.
+
+### 3. npm link (symlink global)
+
+```bash
+# Di folder library
+cd /path/to/esign-ts
+npm link
+
+# Di folder project kamu
+cd /path/to/project-kamu
+npm link @kiiskominfokepri/esign
+```
+
+Perubahan di folder library langsung terlihat di project tanpa instal ulang.
+
+### 4. Private npm registry (opsional)
+
+Jika tim punya registry sendiri (GitHub Packages, Verdaccio, dll), publish ke sana dan install seperti biasa.
+
 ```bash
 npm install @kiiskominfokepri/esign
 ```
+
+### Ringkasan
+
+| Metode | Cocok untuk | Update |
+|--------|-------------|--------|
+| GitHub dependency | Semua project (CI/CD friendly) | `npm update` |
+| Local path | Development satu mesin | Instant (symlink) |
+| npm link | Development aktif, sering ubah library | Instant (symlink) |
+| Private registry | Tim/org dengan registry sendiri | `npm update` |
+
+> **Catatan**: Jika library sudah di-publish ke npm registry publik, cukup:
+> ```bash
+> npm install @kiiskominfokepri/esign
+> ```
 
 ## Authentication
 
