@@ -1,8 +1,10 @@
 # @kiiskominfokepri/esign
 
+[![CI](https://github.com/kiiskominfokepri/esign-ts/actions/workflows/ci.yml/badge.svg)](https://github.com/kiiskominfokepri/esign-ts/actions/workflows/ci.yml)
+
 TypeScript/Node.js client library for **BSrE (Balai Sertifikasi Elektronik / BSSN) Esign Client Service API** v1 and v2.
 
-Port of [`kiiskominfokepri/esign-php`](../esign-php), based on *Petunjuk Teknis Penggunaan API Esign Client Service v2.2.1*.
+Based on *Petunjuk Teknis Penggunaan API Esign Client Service v2.2.1*.
 
 ## Requirements
 
