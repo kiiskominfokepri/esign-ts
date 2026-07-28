@@ -284,6 +284,48 @@ if (!response.ok) {
 
 Legacy getters (`isSuccess()`, `getErrors()`, `getStatus()`, …) remain available but prefer property access.
 
+## Logging / Audit Trail untuk Proses TTE
+
+Berdasarkan persyaratan penggunaan **TTE dari BSR-E**, aplikasi yang menggunakan proses tanda tangan elektronik **wajib mencatat log** setiap proses TTE, termasuk payload respon dari proses sign dokumen.
+
+Library ini sudah menyediakan akses ke **raw payload** untuk kebutuhan tersebut.
+
+### Method yang Tersedia
+
+Semua response object (`SignResponse`, `VerifyResponse`, `JsonResponse`) mewarisi method berikut dari `BaseResponse`:
+
+| Method | Return Type | Deskripsi |
+|--------|-------------|-----------|
+| `getRawBody()` | `string` | Isi body HTTP response mentah |
+| `getResponse()` | `ResponseInterface` | Objek PSR-7 response lengkap |
+| `getData()` | `mixed` | Data response yang sudah didecode (array/null) |
+
+### Contoh Penggunaan
+
+```ts
+import { Esign, EsignFactory } from '@kiiskominfokepri/esign';
+
+// ... setup client
+
+const response = await esign.signInvisible(passphrase, filePath);
+
+// Cara 1 — via method library
+const rawPayload = response.getRawBody();
+
+// Cara 2 — langsung dari PSR-7 ResponseInterface
+const rawResponse = response.getResponse();
+const rawBody = await rawResponse.text();
+
+// Cara 3 — data yang sudah didecode (untuk response JSON seperti V2)
+const data = response.getData();
+```
+
+### Catatan Penting
+
+- Method **logging** (penyimpanan raw payload) tidak disediakan oleh library. Developer bebas memilih cara logging sesuai kebutuhan aplikasi.
+- Pastikan `getRawBody()` atau `getResponse()` dipanggil **sebelum** objek response dihapus/destroy, karena body PSR-7 bersifat stream (drain-once).
+- Untuk versi V2, response JSON biasanya berisi field `file` (base64 encoded) dan `signatureInformations`.
+
 ## Custom HTTP client (tests)
 
 ```ts
