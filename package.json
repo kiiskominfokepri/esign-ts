@@ -23,6 +23,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit",
+    "prepare": "npm run build",
     "prepublishOnly": "npm run build",
     "example:v1:sign-invisible": "tsx examples/v1/sign_invisible.ts",
     "example:v1:sign-visible": "tsx examples/v1/sign_visible.ts",
