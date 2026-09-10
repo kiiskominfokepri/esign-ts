@@ -29,6 +29,10 @@ npm install @kiiskominfokepri/esign
 
 Requirements: Node.js 18+
 
+Suatu dependency diambil dari npm registry publik, sehingga build Docker/CI tidak memerlukan `git` binary atau akses ke GitHub.
+
+Alternatif non-registry (GitHub dependency, local path, `npm link`) didokumentasikan di [README](./README.md#installation).
+
 ---
 
 ## Quick Start

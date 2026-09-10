@@ -43,22 +43,37 @@ npm install
 
 ## Release Process
 
-Maintainers only:
+The package is published to the public npm registry as `@kiiskominfokepri/esign` (`publishConfig.access: "public"`). Publishing can be done manually or automatically via GitHub Actions on tag push.
+
+### Automatic (recommended)
+
+Requires an `NPM_TOKEN` repository secret (npm automation token with publish rights for the `@kiiskominfokepri` scope).
 
 ```bash
-# 1. Update version in package.json
-npm version patch|minor|major
-
-# 2. Update CHANGELOG.md with release notes
-
-# 3. Commit and tag
+# 1. Update version + CHANGELOG
+npm version patch|minor|major --no-git-tag-version
+# edit CHANGELOG.md
 git add package.json CHANGELOG.md
 git commit -m "Release vX.Y.Z"
+
+# 2. Tag and push — .github/workflows/publish.yml builds and publishes
 git tag vX.Y.Z
 git push origin main --tags
+```
 
-# 4. Publish to npm
-npm publish --access public
+### Manual
+
+```bash
+npm login            # must have publish access to @kiiskominfokepri
+npm run typecheck
+npm test
+npm publish          # prepublishOnly runs the build
+```
+
+### Pre-release
+
+```bash
+npm publish --tag next
 ```
 
 ## Code of Conduct
