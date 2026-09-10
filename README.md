@@ -13,12 +13,10 @@ Based on *Petunjuk Teknis Penggunaan API Esign Client Service v2.2.1*.
 
 ## Installation
 
-Library ini **belum dipublikasikan ke npm registry**. Untuk menggunakannya di project, pilih salah satu metode berikut:
-
-### 1. GitHub dependency (langsung dari repo)
+Library ini dipublikasikan di npm registry publik.
 
 ```bash
-npm install github:kiiskominfokepri/esign-ts
+npm install @kiiskominfokepri/esign
 ```
 
 Atau di `package.json`:
@@ -26,12 +24,36 @@ Atau di `package.json`:
 ```json
 {
   "dependencies": {
-    "@kiiskominfokepri/esign": "github:kiiskominfokepri/esign-ts"
+    "@kiiskominfokepri/esign": "^1.0.0"
   }
 }
 ```
 
-#### Mengunci ke tag/commit tertentu
+### Mengunci ke versi/tag tertentu
+
+```bash
+npm install @kiiskominfokepri/esign@1.0.0
+```
+
+```json
+{
+  "dependencies": {
+    "@kiiskominfokepri/esign": "1.0.0"
+  }
+}
+```
+
+### Alternatif (tanpa registry)
+
+Cocok untuk development library atau registry privat.
+
+#### GitHub dependency (langsung dari repo)
+
+```bash
+npm install github:kiiskominfokepri/esign-ts
+```
+
+Metode ini membutuhkan `git` binary dan akses jaringan ke GitHub saat install, serta menjalankan `prepare` script untuk build `dist/` di sisi konsumen.
 
 ```json
 {
@@ -41,9 +63,7 @@ Atau di `package.json`:
 }
 ```
 
-### 2. Local path (satu mesin)
-
-Cocok untuk development, kedua project ada di mesin yang sama.
+#### Local path (satu mesin)
 
 ```json
 {
@@ -55,7 +75,7 @@ Cocok untuk development, kedua project ada di mesin yang sama.
 
 Jalankan `npm install` seperti biasa — npm akan symlink folder tersebut.
 
-### 3. npm link (symlink global)
+#### npm link (symlink global)
 
 ```bash
 # Di folder library
@@ -69,27 +89,25 @@ npm link @kiiskominfokepri/esign
 
 Perubahan di folder library langsung terlihat di project tanpa instal ulang.
 
-### 4. Private npm registry (opsional)
-
-Jika tim punya registry sendiri (GitHub Packages, Verdaccio, dll), publish ke sana dan install seperti biasa.
-
-```bash
-npm install @kiiskominfokepri/esign
-```
-
 ### Ringkasan
 
 | Metode | Cocok untuk | Update |
 |--------|-------------|--------|
-| GitHub dependency | Semua project (CI/CD friendly) | `npm update` |
+| npm registry (publik) | Semua project, Docker/CI (tanpa `git`) | `npm update` / bump version |
+| GitHub dependency | Fork/versi belum dirilis | `npm update` |
 | Local path | Development satu mesin | Instant (symlink) |
 | npm link | Development aktif, sering ubah library | Instant (symlink) |
-| Private registry | Tim/org dengan registry sendiri | `npm update` |
 
-> **Catatan**: Jika library sudah di-publish ke npm registry publik, cukup:
-> ```bash
-> npm install @kiiskominfokepri/esign
-> ```
+### Docker / CI
+
+Karena dependency diambil dari npm registry (bukan `git+ssh`/`github:`), build image tidak butuh `git` binary maupun akses jaringan ke GitHub — cukup akses ke npm registry. Layer `npm ci` juga bisa mengandalkan cache npm standard dan `npm ci --prefer-offline` menjadi efektif:
+
+```dockerfile
+FROM node:20-alpine AS deps
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm ci --prefer-offline --no-audit --fund=false
+```
 
 ## Authentication
 

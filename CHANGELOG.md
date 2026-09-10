@@ -8,6 +8,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Published to the public npm registry as `@kiiskominfokepri/esign` (`publishConfig.access: "public"`)
+- `repository`, `homepage`, and `bugs` metadata in `package.json`
+- GitHub Actions publish workflow (`.github/workflows/publish.yml`) triggered by `v*` tags, with tag/version consistency check
+
+### Changed
+- Installation documentation now recommends the npm registry; GitHub dependency documented as a non-registry alternative
+- Release process documented for both automated (tag push) and manual publishing
+
+## [1.0.0] - 2024-07-26
+
+### Added
 - Initial TypeScript/Node.js implementation of BSrE eSign API v1 & v2
 - Full V1 support: signInvisible, signVisible, sign, downloadDocument, downloadDocumentBinary, signVerification, checkUserStatus
 - Full V2 support: sign, signInvisible, signVisible, signInvisibleMultiple, requestSignTotp, checkUserStatus, registerUser, seal (activation, revoke, TOTP, sealPdf), signVerification
@@ -20,16 +31,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Dual ESM + CJS output with TypeScript declarations
 - MIT License
 
-### Changed
-- N/A (initial release)
-
 ### Deprecated
 - Legacy response getters: `isSuccess()`, `getErrors()`, `getStatus()`, `getData()`, `getRawBodyText()` — prefer property access (`ok`, `errors`, `status`, `data`, `rawBodyText`)
-
-### Removed
-- N/A (initial release)
-
-## [1.0.0] - 2024-07-26
-
-### Added
-- First public release
